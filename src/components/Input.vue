@@ -14,10 +14,10 @@
           <a
             v-for="icon in iconList"
             :key="icon.name"
-            :href="icon.url"
+
             class="title"
           >
-            <div class="more" @click="showPopup">
+            <div class="more" @click="showEditPopup">
               <img src="../assets/more.png" alt="" >
             </div>
             <div class="title-icon">
@@ -80,6 +80,18 @@
         >
       </div>
     </van-popup>
+    <van-popup
+      v-model:show="showEdit" 
+      :style="{width:'200px',height:'100px'}"
+      round
+      duration="0"
+    >
+    <div style="display: flex; flex-direction: column;
+    justify-content: center;align-items: center; margin: 16px 0 0 0;">
+    <button>123</button>
+    <button>456</button>
+    </div>
+    </van-popup>
     <!-- <van-button type="primary">主要按钮</van-button> -->
   </div>
 </template>
@@ -93,9 +105,15 @@ export default {
     const showPopup = () => {
       show.value = true;
     };
+    const showEdit = ref(false);
+    const showEditPopup = () => {
+      showEdit.value = true;
+    };
     return {
       show,
       showPopup,
+      showEdit,
+      showEditPopup,
     };
   },
   data() {
