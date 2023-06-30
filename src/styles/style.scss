@@ -1,0 +1,251 @@
+*{
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.van-overlay{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.van-popup{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 18px;
+  width: 550px;
+  height: 300px ;
+  label, input{
+    margin-bottom: 12px;
+  }
+  label{
+    font-size: 12px;
+    
+  }
+  input{
+    background-color: #f3f3f3;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 6px;
+}
+}
+.btn-container{
+  display: flex;
+  justify-content: flex-end;
+  .van-button{
+    border: rgb(149, 146, 146);
+    width: 64px;
+    height: 32px;
+    margin-left: 12px ;
+    font-size: 13px;
+  }
+}
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&family=Open+Sans&family=Roboto:wght@300&display=swap');
+
+@mixin pad{
+  @media(max-width:670px){
+    @content;
+  }
+}
+
+@mixin mobile{
+  @media(max-width:560px){
+    @content;
+  }
+}
+
+.nav{
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  a{
+    text-decoration: none;
+    &:hover{
+      text-decoration:underline;
+    }
+    &:visited{
+      color: rgb(99, 93, 93);
+    }
+  }
+  .nav-left a{
+    margin: 18px;
+    @include mobile{
+      display: none;
+    }
+  }
+  .nav-right a{
+    margin:12px
+
+  }
+
+}
+
+.google{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  height: 250px;
+  .fig{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    img{
+      padding: 24px;
+    }
+  }
+}
+
+.input{
+  .form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .all-input{
+      padding: 12px;
+      margin: 18px 48px;
+      border: 1px solid #e7dddd ;
+      border-radius: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 561px;
+      @include pad{
+        width: 449px;
+      }
+      @include mobile{
+        width: 337px;
+      }
+      &:hover{
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+      .form{
+        justify-content: center;
+      }
+      .text{
+        display: flex;
+        max-height: 24px;
+        justify-content: space-around;
+        width: 100%;
+        input{
+          padding-left: 18px;
+          width: 100%;
+          font-size:medium;
+          border: none;
+          outline: none;
+        }
+        img{
+          width:20px;
+          height: 20px;
+        }
+        img.mic{
+          &:hover{
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .option{
+    display: flex;
+    flex-wrap: wrap;
+    width: 561px;
+    padding: 0px 12px;
+    margin: 0px 48px;
+    justify-content: center;
+    align-items: center;
+    @include pad{
+      width: 449px;
+    }
+    @include mobile{
+      width: 337px;
+    }
+    a{
+      min-width: 112px;
+      height: 112px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      color: black;
+      position: relative;
+      z-index: 0;
+      // pointer-events: none;
+      &:hover{
+        background-color: rgb(233, 234, 234);
+        cursor: pointer;
+      }
+      &:link{
+        color: black;
+      }
+      .more{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 24px;
+        height: 24px;
+        // border:1px solid black;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // z-index: 1220000000000;
+        // visibility: hidden;
+        opacity: 0;
+
+        &:hover{
+          transition: all 0.5s;
+          background-color: rgb(186, 185, 185);
+          visibility: visible;
+          opacity: 1;
+          // width: 100px;
+          z-index: 100;
+          cursor: pointer;
+          // display: block;
+          // visibility: visible;
+          // display: inline-block;
+        }
+        img{
+          width: 16px;
+          height: 16px;
+        }
+      }
+      div.title-icon{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 48px;
+        min-height: 48px;
+        background-color:rgb(245, 244, 244);
+        border-radius: 30px;
+  
+        img{
+          width: 24px;
+          height: 24px;
+        }
+      }
+      div.title-text{
+        font-size: 14px;
+        padding-top: 18px;
+      }
+    }
+  }
+}
+
+.clock{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.lan{
+  display: flex;
+  flex-direction:column ;
+  justify-content: center;
+  align-items: center;
+}
