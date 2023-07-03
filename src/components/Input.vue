@@ -11,13 +11,14 @@
           </div>
         </div>
         <div class="option">
+          <!-- :href="icon.url" -->
           <a
             v-for="icon in iconList"
             :key="icon.name"
-
             class="title"
+            @click="goToHref(icon.url)"
           >
-            <div class="more" @click="showEditPopup">
+            <div class="more" @click.stop="showEditPopup">
               <img src="../assets/more.png" alt="" >
             </div>
             <div class="title-icon">
@@ -98,9 +99,11 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 
 export default {
   setup() {
+    const router = useRouter();
     const show = ref(false);
     const showPopup = () => {
       show.value = true;
@@ -109,17 +112,21 @@ export default {
     const showEditPopup = () => {
       showEdit.value = true;
     };
+    const goToHref =(url)=>{
+      window.location.href = url;
+    }
     return {
       show,
       showPopup,
       showEdit,
       showEditPopup,
+      goToHref,
     };
   },
   data() {
     return {
       iconList: [
-        { name: "google", url: "https://www.google.com/" },
+        { name: "google", url: "https://www.google.com" },
         { name: "youtube", url: "https://www.youtube.com" },
       ],
       iconTitle: "",
@@ -142,9 +149,6 @@ export default {
     func(){
       alert("跳出編輯")
     },
-    goToHref(e){
-      e.href({iconUrl})
-    }
   },
 };
 </script>
