@@ -5,7 +5,7 @@
       <div class="form">
         <div class="all-input">
           <div class="text">
-            <img class="magnifier" src="../assets/search (1).png" alt="" />
+            <img class="magnifier" src="../assets/search.png" alt="" />
             <input type="text" placeholder="搜尋 Google 或是輸入網址" />
             <img class="mic" src="../assets/mic.png" alt="" />
           </div>
