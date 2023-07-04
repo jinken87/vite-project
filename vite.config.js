@@ -12,6 +12,6 @@ export default defineConfig({
   ],
   base:"/",
   publicPath: process.env.NODE_ENV === 'production'
-    ? 'vite-project'
+    ? '/vite-project/'
     : '/'
 })
