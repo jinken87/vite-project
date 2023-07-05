@@ -8,5 +8,5 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-git push -f https://github.com/jinken87/vite-project.git main:gh-pages
+git push -f https://github.com/jinken87/vite-project.git master:gh-pages
 cd -
