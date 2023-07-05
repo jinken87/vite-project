@@ -14,11 +14,13 @@
           <!-- :href="icon.url" -->
           <a
             v-for="icon in iconList"
+            :title=icon.name
             :key="icon.name"
             class="title"
             @click="goToHref(icon.url)"
           >
-            <div class="more" @click.stop="showEditPopup">
+            <div class="more" 
+            @click.stop="showEditPopup">
               <img src="../assets/more.png" alt="" >
             </div>
             <div class="title-icon">
@@ -29,9 +31,9 @@
             </div>
           </a>
 
-          <a class="title" @click="showPopup">
+          <a class="title" title="增加捷徑" @click="showPopup">
             <div class="title-icon">
-              <img src="../assets/smallPlus.png" alt="a" />
+              <img src="../assets/smallPlus.png" alt="增加捷徑" />
             </div>
             <div class="title-text">
               <span>新增捷徑</span>
@@ -82,16 +84,24 @@
       </div>
     </van-popup>
     <van-popup
+      class="moreDialog"
       v-model:show="showEdit" 
-      :style="{width:'200px',height:'100px'}"
+      :style="{width:'150px',height:'100px'}"
+      :overlay="false"
       round
       duration="0"
     >
-    <div style="display: flex; flex-direction: column;
-    justify-content: center;align-items: center; margin: 16px 0 0 0;">
-    <button>123</button>
-    <button>456</button>
-    </div>
+      <div style="display: flex; flex-direction: column;
+        justify-content: center;align-items: center; margin: 14px 0px;">
+        <button class="moreBtn"
+        @click="showEditPopup"
+        >編輯捷徑
+        </button>
+        <button class="moreBtn"
+        @click="showEditPopup"
+        >移除
+        </button> 
+      </div>
     </van-popup>
     <!-- <van-button type="primary">主要按钮</van-button> -->
   </div>
@@ -110,7 +120,8 @@ export default {
     };
     const showEdit = ref(false);
     const showEditPopup = () => {
-      showEdit.value = true;
+      showEdit.value ?showEdit.value =false: showEdit.value =true;
+
     };
     const goToHref =(url)=>{
       window.location.href = url;

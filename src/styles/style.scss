@@ -234,6 +234,18 @@
       }
     }
   }
+  .moreDialog{
+    padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;;
+  }
+  .moreBtn{
+    width: 100%;
+    border: 0;
+    padding: 6px 0;
+    &:hover{
+      background-color: rgb(186, 185, 185);
+    }
+  }
 }
 
 .clock{

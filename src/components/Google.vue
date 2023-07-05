@@ -1,7 +1,7 @@
 <template>
   <div class="google">
     <div class="fig">
-      <img src="../assets/googleImg.png" alt="google">
+      <img title="google 圖片" src="../assets/googleImg.png" alt="google">
     </div>
   </div>
 </template>
