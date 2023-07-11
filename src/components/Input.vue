@@ -19,7 +19,7 @@
             class="title"
             @click="goToHref(icon.url)"
           >
-            <div class="more" @click.stop="showEditPopup" @mousedown="trace">
+            <div class="more" @click.stop="showEditPopup(icon)" @mousedown="trace">
               <img src="../assets/more.png" alt="" />
             </div>
             <div class="title-icon">
@@ -43,13 +43,12 @@
     </form>
     <!-- <van-cell title="展示弹出层" is-link @click="showPopup" /> -->
     <!-- eslint-disable -->
+    <!--新增icon-->
     <van-popup
       v-model:show="showicon"
       :style="{}"
       round
-      closeable
       duration="0"
-      close-icon="close"
     >
       <!-- eslint-disable  -->
 
@@ -74,7 +73,7 @@
       <p>{{ iconTitle }}</p>
       <p>{{ iconUrl }}</p>
       <div class="btn-container">
-        <van-button plain hairline type="primary" @click="closeIcon()"
+        <van-button plain hairline type="primary" @click="closeAddIcon()"
           >取消</van-button
         >
         <van-button @click="createIcon()" hairline type="primary"
@@ -82,10 +81,48 @@
         >
       </div>
     </van-popup>
+    <!--編輯icon-->
+    <van-popup
+      v-model:show="showChangeIcon"
+      :style="{}"
+      round
+      duration="0"
+    >
+      <!-- eslint-disable  -->
+
+      <p>新增捷徑</p>
+      <label for="">名稱</label>
+      <input
+        v-model="iconTitle"
+        type="text"
+        name=""
+        id=""
+        placeholder="輸入捷徑名稱"
+      />
+      <label for="">網址</label>
+      <input
+        v-model="iconUrl"
+        @focus="urlForSure"
+        type="text"
+        name=""
+        id=""
+        placeholder="輸入捷徑網址"
+      />
+      <p>{{ iconTitle }}</p>
+      <p>{{ iconUrl }}</p>
+      <div class="btn-container">
+        <van-button plain hairline type="primary" @click="closeChangeIcon()"
+          >取消</van-button
+        >
+        <van-button @click="changeIcon()" hairline type="primary"
+          >完成</van-button
+        >
+      </div>
+    </van-popup>
+    <!--編輯小彈窗-->
     <van-popup
       class="moreDialog"
       v-model:show="showEdit"
-      :del="iconList.name"
       :style="{
         margin: 0,
         width: '150px',
@@ -107,10 +144,10 @@
           margin: 14px 0px;
         "
       >
-        <button class="moreBtn" @click="showEditPopup(), (showicon = true)">
+        <button class="moreBtn" @click="editIcon()">
           編輯捷徑
         </button>
-        <button class="moreBtn" @click="showEditPopup(), deleteIcon(icon.name)">
+        <button class="moreBtn" @click=" deleteIcon()">
           移除
         </button>
       </div>
@@ -126,27 +163,46 @@ import { useRouter } from "vue-router";
 export default {
   setup() {
     const router = useRouter();
+    const currentIconName = ref("");
     const showicon = ref(false);
-    const showiconPopup = () => {
-      showicon.value ? (showicon.value = false) : (showicon.value = true);
-    };
     const showEdit = ref(false);
-    const showEditPopup = () => {
-      showEdit.value ? (showEdit.value = false) : (showEdit.value = true);
+    const showChangeIcon =ref(false);
+
+    //打開新增捷徑
+    const showiconPopup = () => {
+      showicon.value = !showicon.value;
     };
+
+    //編輯小視窗
+    const showEditPopup = (icon) => {
+      currentIconName.value = icon.name;
+      showEdit.value = !showEdit.value;
+    };
+    //編輯icon
+    const showChangeIconPopup =(icon)=>{
+      currentIconName.value = icon.name;
+      showChangeIcon.value = !showChangeIcon.value;
+      
+    }
+
     const goToHref = (url) => {
       window.location.href = url;
     };
+
     return {
       showicon,
       showiconPopup,
       showEdit,
       showEditPopup,
       goToHref,
+      currentIconName,
+      showChangeIconPopup,
+      showChangeIcon,
     };
   },
   data() {
     return {
+      currentIconName:'',
       iconList: [
         { name: "google", url: "https://www.google.com" },
         { name: "youtube", url: "https://www.youtube.com" },
@@ -155,7 +211,6 @@ export default {
       iconUrl: "",
       showX: "",
       showY: "",
-      del:"",
     };
   },
   methods: {
@@ -166,15 +221,38 @@ export default {
         this.iconUrl !== ""
       ) {
         this.iconList.push({ name: this.iconTitle, url: this.iconUrl });
-        this.closeIcon()
+        this.closeAddIcon()
       } else {
         alert("請輸入名稱及連結");
       }
     },
-    closeIcon() {
+    changeIcon() {
+      if (
+        this.iconTitle &&
+        this.iconUrl !== "https://" &&
+        this.iconUrl !== ""
+      ) {
+        const index =this.iconList.findIndex(icon => icon.name === this.currentIconName)
+        this.iconList[index].name = this.iconTitle
+        this.iconList[index].url  =this.iconUrl
+        this.iconTitle = ""
+        this.iconUrl = ""
+
+        this.showChangeIcon = false;
+
+      } else {
+        alert("請輸入名稱及連結");
+      }
+    },
+    closeAddIcon() {
       this.iconTitle = "";
       this.iconUrl = "";
       this.showicon = false;
+    },
+    closeChangeIcon(){
+      this.iconTitle = "";
+      this.iconUrl = "";
+      this.showChangeIcon = false ;
     },
     trace(e) {
       this.showX = e.clientX - 100 + "px";
@@ -186,23 +264,21 @@ export default {
     resetIcon() {
       this.iconList=[]
     },
-    deleteIcon(name) {
-      const index =iconList.value.findIndex(icon => icon.name === name);
+    editIcon(){
+      this.showEdit=false;
+      this.showChangeIcon =true
+      const index =this.iconList.findIndex(icon => icon.name === this.currentIconName)
       if(index !== -1){
-        iconList.value.splice(index, 1)
-        console.log("進來了")
+        this.iconTitle=this.iconList[index].name
+        this.iconUrl=this.iconList[index].url
       }
-
-      console.log("出去了");
-      console.log(iconList.value)
-      console.log(name)
-      // for (let i = 0; i < this.iconList.length; i++) {
-      //   console.log(this.iconList[i].name)
-      //   if (this.iconList[i].name ==key ) {
-      //     console.log("ininin");
-      //     this.iconList.splice(i, 1);
-      //   }
-      // }
+    },
+    deleteIcon() {
+      const index =this.iconList.findIndex(icon => icon.name === this.currentIconName);
+      if(index !== -1){
+        this.iconList.splice(index, 1)
+      }
+      this.showEdit = false;
     },
     func() {
       alert("跳出編輯");
