@@ -85,6 +85,7 @@
     <van-popup
       class="moreDialog"
       v-model:show="showEdit"
+      :del="iconList.name"
       :style="{
         margin: 0,
         width: '150px',
@@ -109,7 +110,7 @@
         <button class="moreBtn" @click="showEditPopup(), (showicon = true)">
           編輯捷徑
         </button>
-        <button class="moreBtn" @click="showEditPopup(), deleteIcon(this.icon)">
+        <button class="moreBtn" @click="showEditPopup(), deleteIcon(icon.name)">
           移除
         </button>
       </div>
@@ -154,6 +155,7 @@ export default {
       iconUrl: "",
       showX: "",
       showY: "",
+      del:"",
     };
   },
   methods: {
@@ -164,9 +166,7 @@ export default {
         this.iconUrl !== ""
       ) {
         this.iconList.push({ name: this.iconTitle, url: this.iconUrl });
-        this.showicon = false;
-        this.iconTitle = "";
-        this.iconUrl = "";
+        this.closeIcon()
       } else {
         alert("請輸入名稱及連結");
       }
@@ -183,16 +183,26 @@ export default {
     urlForSure() {
       this.iconUrl = "https://";
     },
-    editIcon() {},
-    deleteIcon(key) {
-      console.log(key);
-      for (let i = 0; i < this.iconList.length; i++) {
-        console.log(this.iconList[i].name)
-        if (this.iconList[i].name ==key ) {
-          console.log("ininin");
-          this.iconList.splice(i, 1);
-        }
+    resetIcon() {
+      this.iconList=[]
+    },
+    deleteIcon(name) {
+      const index =iconList.value.findIndex(icon => icon.name === name);
+      if(index !== -1){
+        iconList.value.splice(index, 1)
+        console.log("進來了")
       }
+
+      console.log("出去了");
+      console.log(iconList.value)
+      console.log(name)
+      // for (let i = 0; i < this.iconList.length; i++) {
+      //   console.log(this.iconList[i].name)
+      //   if (this.iconList[i].name ==key ) {
+      //     console.log("ininin");
+      //     this.iconList.splice(i, 1);
+      //   }
+      // }
     },
     func() {
       alert("跳出編輯");
