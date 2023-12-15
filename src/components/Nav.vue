@@ -9,6 +9,8 @@
       <a href="#">圖片</a>
       <a href="#">svg</a>
       <a href="#">fig</a>
+      <a href="#">fig</a>
+      <a href="#">fig</a>
     </div>
   </div>
 </template>
